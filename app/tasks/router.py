@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query
 from app.tasks.dao import TasksDAO
-from app.tasks.schemas import STasksCreate
+from app.tasks.schemas import STasksCreate, STasksShowAll, STasksDetailShow
 from datetime import date
 from typing import Optional
 
@@ -11,11 +11,17 @@ router = APIRouter(
 
 
 @router.get("/all_tasks")
-async def show_all_tasks():
+async def show_all_tasks() -> list[STasksShowAll]:
     return await TasksDAO.find_all()
+
+
+@router.get("/detail_show")
+async def detail_show_by_id(task_id: int) -> STasksDetailShow:
+    return await TasksDAO.find_by_id(task_id)
 
 
 @router.post("/add_task")
 async def add_new_task(tasks: STasksCreate):
     dump = tasks.model_dump()
     task = await TasksDAO.add(**dump)
+    return {"message": "success create"}
