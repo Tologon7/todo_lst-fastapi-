@@ -1,17 +1,16 @@
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Optional
 from fastapi import Query
-from datetime import date
+from datetime import date, datetime,timezone
 
 
 class STasksCreate(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
 
     name: str
     description: Optional[str]
     complexity: int = Field(ge=1, le=5)
     deadline: Optional[date]
-    is_active: bool
+    is_active: bool = True
 
 
 class STasksShowAll(BaseModel):

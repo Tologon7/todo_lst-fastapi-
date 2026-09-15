@@ -25,3 +25,8 @@ async def add_new_task(tasks: STasksCreate):
     dump = tasks.model_dump()
     task = await TasksDAO.add(**dump)
     return {"message": "success create"}
+
+
+@router.delete("/task_delete/{task_id}")
+async def task_delete(task_id: int):
+    return await TasksDAO.delete_by_id(task_id)

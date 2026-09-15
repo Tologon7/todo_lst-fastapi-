@@ -1,5 +1,5 @@
 from app.database import async_session_maker
-from sqlalchemy import select, insert
+from sqlalchemy import select, insert, delete
 
 
 class BaseDAO:
@@ -34,3 +34,13 @@ class BaseDAO:
             await session.commit() # COMMIT — фиксирует все изменения, сделанные в рамках текущей транзакции,
             # делая их постоянными для других пользователей и системы. Без явного commit изменения не сохраняются в
             # базе на постоянной основе.
+
+    @classmethod
+    async def delete_by_id(cls, model_id):
+        async with async_session_maker() as session:
+            query = delete(cls.model).where(cls.model.id == model_id)
+            await session.execute(query)
+            await session.commit()
+
+
+
