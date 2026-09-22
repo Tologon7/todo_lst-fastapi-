@@ -1,7 +1,6 @@
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Optional
-from fastapi import Query
-from datetime import date, datetime,timezone
+from datetime import date
 
 
 class STasksCreate(BaseModel):
@@ -32,4 +31,3 @@ class STasksDetailShow(BaseModel):
     deadline: Optional[date]
     done: Optional[bool]
     is_active: bool
-
