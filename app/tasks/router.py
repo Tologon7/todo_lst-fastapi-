@@ -1,12 +1,16 @@
 from fastapi import APIRouter, Query, Depends
-from app.tasks.dao import TasksDAO
-from app.tasks.schemas import STasksCreate, STasksShowAll, STasksDetailShow
 from datetime import date
 from typing import Optional
+
+from app.tasks.dao import TasksDAO
+from app.tasks.schemas import STasksCreate, STasksShowAll, STasksDetailShow
 from app.tasks.models import Tasks
 from app.tasks.dependencies import get_task
 
-from exceptions import TaskIsNotPresentException
+from app.users.models import Users
+from app.users.dependencies import get_current_user
+
+from exceptions import TaskIsNotPresentException, UserIsNotPresentException
 
 router = APIRouter(
     prefix="/tasks",
@@ -15,7 +19,7 @@ router = APIRouter(
 
 
 @router.get("/all_tasks")
-async def show_all_tasks() -> list[STasksShowAll]:
+async def show_all_tasks(user: Users = Depends(get_current_user)) -> list[STasksShowAll]:
     result = await TasksDAO.find_all()
     if not result:
         raise TaskIsNotPresentException()
@@ -23,7 +27,7 @@ async def show_all_tasks() -> list[STasksShowAll]:
 
 
 @router.get("/detail_show/{task_id}")
-async def detail_show_by_id(task: Tasks = Depends(get_task)) -> STasksDetailShow:
+async def detail_show_by_id(user: Users = Depends(get_current_user), task: Tasks = Depends(get_task)) -> STasksDetailShow:
     return task
 
 
@@ -36,4 +40,3 @@ async def add_new_task(tasks: STasksCreate):
 @router.delete("/task_delete/{task_id}")
 async def task_delete(task: Tasks = Depends(get_task)):
     await TasksDAO.delete_by_id(task.id)
-

@@ -12,7 +12,7 @@ from app.database import Base
 from app.config import settings
 
 from app.tasks.models import Tasks
-# from app.users.models import Users
+from app.users.models import Users
 
 sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))  #просто делай всегда
 
