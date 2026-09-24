@@ -1,6 +1,8 @@
 from app.database import Base
-from sqlalchemy import Column, Integer, Date, Boolean, String
+from sqlalchemy import Column, Integer, Date, Boolean, String, ForeignKey
 from datetime import datetime, timezone
+
+from app.users.roles.models import Role
 
 
 class Users(Base):
@@ -13,3 +15,4 @@ class Users(Base):
     email = Column(String, nullable=False)
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
+    role = Column(ForeignKey("roles.id"), default=1)

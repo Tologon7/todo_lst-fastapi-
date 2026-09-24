@@ -4,7 +4,6 @@ from datetime import date
 
 
 class STasksCreate(BaseModel):
-
     name: str
     description: Optional[str]
     complexity: int = Field(ge=1, le=5)

@@ -1,13 +1,11 @@
 from fastapi import APIRouter, Depends, Response
 
-from app.users.schemas import SUserAuth, SUserLogin
-from app.users.models import Users
-from app.users.dependencies import get_current_user
-from app.users.dao import UserDAO
 from app.users.auth import get_password_hash, authenticate_user, create_access_token
-
+from app.users.dao import UserDAO
+from app.users.dependencies import get_admin_user
+from app.users.models import Users
+from app.users.schemas import SUserAuth, SUserLogin
 from exceptions import UserIsNotPresentException, UserAlreadyExistsException
-
 
 router = APIRouter(
     prefix="/users",
@@ -42,3 +40,9 @@ async def login_user(response: Response, user_data: SUserLogin):
 @router.post("/logout")
 async def logout(response: Response):
     response.delete_cookie("todo_access_token")
+
+
+@router.get("/all_users")
+async def show_all_users(admin_rights: Users = Depends(get_admin_user)):
+    result = await UserDAO.find_all()
+    return result

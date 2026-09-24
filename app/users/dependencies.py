@@ -4,13 +4,14 @@ from app.config import settings
 from datetime import datetime, timezone
 
 from app.users.dao import UserDAO
-# from app.users.models import Users
+from app.users.models import Users
 
 from exceptions import (
         UserIsNotPresentException,
         TokenAbsentException,
         IncorrectTokenFormatException,
-        TokenExpiredException
+        TokenExpiredException,
+        ThisUserHasNoRights
     )
 
 
@@ -42,3 +43,9 @@ async def get_current_user(token: str = Depends(get_token)):
         raise UserIsNotPresentException()
 
     return user
+
+
+def get_admin_user(current_user: Users = Depends(get_current_user)):
+    if current_user.role != 2:
+        raise ThisUserHasNoRights()
+    return current_user

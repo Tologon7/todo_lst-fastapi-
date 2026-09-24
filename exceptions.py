@@ -40,3 +40,13 @@ class IncorrectTokenFormatException(MainException):
 class TokenExpiredException(MainException):
     status_code = status.HTTP_404_NOT_FOUND
     detail = "Истек время жизни токена"
+
+
+class ThisUserHasNoRights(MainException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "У этого пользователя нету прав на данное действие"
+
+
+class RoleAlreadyExistsException(MainException):
+    status_code = status.HTTP_409_CONFLICT
+    detail = "Такая роль существует"
