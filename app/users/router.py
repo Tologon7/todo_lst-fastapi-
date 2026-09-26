@@ -5,7 +5,7 @@ from app.users.dao import UserDAO
 from app.users.dependencies import get_admin_user
 from app.users.models import Users
 from app.users.schemas import SUserAuth, SUserLogin
-from exceptions import UserIsNotPresentException, UserAlreadyExistsException
+from app.exceptions import UserIsNotPresentException, UserAlreadyExistsException
 
 router = APIRouter(
     prefix="/users",

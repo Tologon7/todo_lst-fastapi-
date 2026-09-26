@@ -1,6 +1,4 @@
-from fastapi import APIRouter, Query, Depends
-from datetime import date
-from typing import Optional
+from fastapi import APIRouter, Depends
 
 from app.tasks.dao import TasksDAO
 from app.tasks.schemas import STasksCreate, STasksShowAll, STasksDetailShow
@@ -10,7 +8,7 @@ from app.tasks.dependencies import get_task
 from app.users.models import Users
 from app.users.dependencies import get_current_user
 
-from exceptions import TaskIsNotPresentException, UserIsNotPresentException
+from app.exceptions import TaskIsNotPresentException
 
 router = APIRouter(
     prefix="/tasks",

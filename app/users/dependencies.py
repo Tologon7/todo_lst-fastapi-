@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from app.users.dao import UserDAO
 from app.users.models import Users
 
-from exceptions import (
+from app.exceptions import (
         UserIsNotPresentException,
         TokenAbsentException,
         IncorrectTokenFormatException,
@@ -46,6 +46,6 @@ async def get_current_user(token: str = Depends(get_token)):
 
 
 def get_admin_user(current_user: Users = Depends(get_current_user)):
-    if current_user.role != 2:
+    if current_user.role != 2: # 2 - admin, 1 - worker
         raise ThisUserHasNoRights()
     return current_user

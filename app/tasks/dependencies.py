@@ -1,5 +1,5 @@
 from app.tasks.dao import TasksDAO
-from exceptions import TaskIsNotPresentException
+from app.exceptions import TaskIsNotPresentException
 
 
 async def get_task(task_id: int) -> int:

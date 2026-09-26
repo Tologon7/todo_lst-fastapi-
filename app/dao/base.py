@@ -41,6 +41,3 @@ class BaseDAO:
             query = delete(cls.model).where(cls.model.id == model_id)
             await session.execute(query)
             await session.commit()
-
-
-

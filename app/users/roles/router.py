@@ -4,7 +4,7 @@ from app.users.roles.dao import RoleDAO
 from app.users.dependencies import get_admin_user
 from app.users.models import Users
 from app.users.roles.schemas import SRoleAdd
-from exceptions import RoleAlreadyExistsException
+from app.exceptions import RoleAlreadyExistsException
 
 
 router = APIRouter(
