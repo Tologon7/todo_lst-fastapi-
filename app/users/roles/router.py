@@ -14,7 +14,7 @@ router = APIRouter(
 
 
 @router.post("/add_role")
-async def add_role(role_data: SRoleAdd, admin_rights: Users = Depends(get_admin_user)):
+async def add_role(role_data: SRoleAdd, _: Users = Depends(get_admin_user)):
     existing_role = await RoleDAO.find_one_or_none(name=role_data.name)
     if existing_role:
         raise RoleAlreadyExistsException()
@@ -22,6 +22,6 @@ async def add_role(role_data: SRoleAdd, admin_rights: Users = Depends(get_admin_
 
 
 @router.get("/all_roles")
-async def show_all_roles(admin_rights: Users = Depends(get_admin_user)):
+async def show_all_roles(_: Users = Depends(get_admin_user)):
     result = await RoleDAO.find_all()
     return result

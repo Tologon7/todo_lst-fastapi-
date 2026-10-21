@@ -15,4 +15,4 @@ class Users(Base):
     email = Column(String, nullable=False)
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
-    role = Column(ForeignKey("roles.id"), default=1)
+    role = Column(ForeignKey("roles.id"), default=1) # 1 - worker, 2 - admin
