@@ -11,7 +11,7 @@ class Users(Base):
     id = Column(Integer, primary_key=True)
     first_name = Column(String)
     last_name = Column(String, nullable=True)
-    data_create = Column(Date, default=datetime.now(timezone.utc))
+    data_create = Column(Date, default=lambda: datetime.now(timezone.utc).date())
     email = Column(String, nullable=False)
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)

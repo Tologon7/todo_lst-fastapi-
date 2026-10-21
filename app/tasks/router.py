@@ -24,8 +24,6 @@ router = APIRouter(
 async def show_all_tasks() -> STasksShowAll:
     await asyncio.sleep(5)
     result = await TasksDAO.find_all()
-    if not result:
-        raise TaskIsNotPresentException()
     return result
 
 

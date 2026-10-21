@@ -13,7 +13,7 @@ class Tasks(Base):
     name = Column(String, nullable=False)
     description = Column(Text)
     complexity = Column(Integer, default=1)
-    data_create = Column(Date, default=datetime.now(timezone.utc))
+    data_create = Column(Date, default=lambda: datetime.now(timezone.utc).date())
     deadline = Column(Date)
     done = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)

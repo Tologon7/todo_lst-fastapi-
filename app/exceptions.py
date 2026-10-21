@@ -28,22 +28,22 @@ class UserAlreadyExistsException(MainException):
 
 
 class TokenAbsentException(MainException):
-    status_code = status.HTTP_404_NOT_FOUND
+    status_code = status.HTTP_401_UNAUTHORIZED
     detail = "Остутствует токен"
 
 
 class IncorrectTokenFormatException(MainException):
-    status_code = status.HTTP_404_NOT_FOUND
+    status_code = status.HTTP_401_UNAUTHORIZED
     detail = "Неправильный формат токена"
 
 
 class TokenExpiredException(MainException):
-    status_code = status.HTTP_404_NOT_FOUND
+    status_code = status.HTTP_401_UNAUTHORIZED
     detail = "Истек время жизни токена"
 
 
 class ThisUserHasNoRights(MainException):
-    status_code = status.HTTP_401_UNAUTHORIZED
+    status_code = status.HTTP_403_FORBIDDEN
     detail = "У этого пользователя нету прав на данное действие"
 
 

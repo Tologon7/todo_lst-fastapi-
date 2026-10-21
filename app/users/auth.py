@@ -7,8 +7,6 @@ from pydantic import EmailStr
 from app.users.dao import UserDAO
 from app.config import settings
 
-from app.users.schemas import SUserAuth
-
 
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
